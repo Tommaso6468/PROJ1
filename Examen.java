@@ -19,4 +19,9 @@ public class Examen {
     public String getNaam() {
         return naam;
     }
+
+    public boolean neemAf() {
+        // TODO
+        return false;
+    }
 }
