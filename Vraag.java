@@ -43,7 +43,7 @@ public class Vraag {
             Character userInputChar = userInput.charAt(0);
 
             //Controle antwoord
-            int indexAntwoord = letters.indexOf(userInputChar);
+            int indexAntwoord = userInputChar - 'a';
             eindUserAntwoord = opties[indexAntwoord];
             goedOfFout = opties[indexAntwoord].equals(antwoord);
         }
