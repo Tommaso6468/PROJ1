@@ -8,6 +8,10 @@ public class ExamensController {
 
     }
 
+    public void voegExamenToe(String naam, Vraag[] vragen, int minimum) {
+        examens.add(new Examen(naam, vragen, minimum));
+    }
+
     public void lijstExamens() {
         switch (examens.size()) {
             case 0 -> System.out.println("Er zijn geen examens beschikbaar.%n");
