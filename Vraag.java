@@ -46,7 +46,7 @@ public class Vraag {
 
                 //Controle antwoord
                 indexAntwoord = userInputChar - 'a';
-                if (indexAntwoord > 0 && indexAntwoord < opties.length) {
+                if (indexAntwoord >= 0 && indexAntwoord < opties.length) {
                     break;
                 } else {
                     System.out.println("Voer een geldige optie in.");
