@@ -3,9 +3,11 @@ import java.util.Scanner;
 
 public class Menu {
     Scanner scanner = new Scanner(System.in);
+    private boolean isGeslaagdExamen;
 
     public void startMenu(){
         Scanner scanner = new Scanner(System.in);
+
         //constructors
         ExamensController examensController = new ExamensController();
         StudentenController studentenController = new StudentenController();
@@ -27,16 +29,18 @@ public class Menu {
 
             switch (keuze) {
                 case 1:
-
+                    System.out.println("Examens:");
+                    System.out.println(examensController.getExamens());
                     break;
                 case 2:
-
+                    System.out.println("Studenten:");
+                    System.out.println(studentenController.studentLijst());
                     break;
                 case 3:
-
+                    studentenController.studentToevoegen();
                     break;
                 case 4:
-
+                    studentenController.studentVerwijderen();
                     break;
                 case 5:
                     //check of student in lijst staat
@@ -48,23 +52,30 @@ public class Menu {
 
                     for (int i = 0; i < aantal; i++) {
                         if (studenten.get(i).getStudentennummer() == studentenNummer) {
-                            examensController.kiesEnStartExamen(scanner);
+                            isGeslaagdExamen = false;
+                            Examen examen = examensController.kiesExamen(scanner);
+                            isGeslaagdExamen = examen.neemAf();
                         } else if (i == aantal) {
                             studentenController.studentToevoegen();
                         }
                     }
                     break;
                 case 6:
-
+                    if(isGeslaagdExamen){
+                        System.out.println("Student is geslaagd voor het examen!");
+                    } else {
+                        System.out.println("Student is niet geslaagd voor het examen");
+                    }
                     break;
                 case 7:
-
+                    System.out.println("Student heeft volgende Exmanens gehaald:");
+                    System.out.println(studentenController.studentWelkeExamensGehaald());
                     break;
                 case 8:
-
+                    studentenController.studentMeesteExamensGehaald();
                     break;
                 case 0:
-
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("Dit is geen menu optie!");
