@@ -12,7 +12,6 @@ public class Menu {
         ExamensController examensController = new ExamensController();
         StudentenController studentenController = new StudentenController();
 
-
         int keuze;
         while(true) {
             System.out.println("1) Lijst met examens");
@@ -25,16 +24,28 @@ public class Menu {
             System.out.println("8) Welke student heeft de meeste examens gehaald?");
             System.out.println("0) Exit");
 
+            ArrayList<Student> studenten = studentenController.studentLijst();
+            int aantalStudenten = studenten.size();
+
+            ArrayList<Examen> examen = examensController.getExamens();
+            int aantalExamen = examen.size();
+
             keuze = scanner.nextInt();
 
             switch (keuze) {
                 case 1:
                     System.out.println("Examens:");
-                    System.out.println(examensController.getExamens());
+
+                    for(int i = 0; i < aantalExamen; i++){
+                        System.out.println(examen.get(i));
+                    }
                     break;
                 case 2:
                     System.out.println("Studenten:");
-                    System.out.println(studentenController.studentLijst());
+
+                    for(int i = 0; i < aantalStudenten; i++){
+                        System.out.println(studenten.get(i));
+                    }
                     break;
                 case 3:
                     studentenController.studentToevoegen();
@@ -44,18 +55,16 @@ public class Menu {
                     break;
                 case 5:
                     //check of student in lijst staat
-                    ArrayList<Student> studenten = StudentenController.studentLijst();
-                    int aantal = studenten.size();
-
                     System.out.println("Voer je leerlingennummer in:");
                     int studentenNummer = scanner.nextInt();
 
-                    for (int i = 0; i < aantal; i++) {
+                    //loopt door studentenLijst om te zoeken naar het leerlingnummer
+                    for (int i = 0; i < aantalStudenten; i++) {
                         if (studenten.get(i).getStudentennummer() == studentenNummer) {
                             isGeslaagdExamen = false;
                             Examen examen = examensController.kiesExamen(scanner);
                             isGeslaagdExamen = examen.neemAf();
-                        } else if (i == aantal) {
+                        } else if (i == aantalStudenten) {
                             studentenController.studentToevoegen();
                         }
                     }
@@ -68,12 +77,12 @@ public class Menu {
                     }
                     break;
                 case 7:
-                    System.out.println("Student heeft volgende Exmanens gehaald:");
+                    System.out.println("Student heeft volgende examens gehaald:");
                     System.out.println(studentenController.studentWelkeExamensGehaald());
                     break;
                 case 8:
                     System.out.println("Deze Student heeft de meeste examens gehaald:");
-                    System.out.println(studentenController.studentMeesteExamensGehaald(););
+                    System.out.println(studentenController.studentMeesteExamensGehaald());
                     break;
                 case 0:
                     System.exit(0);
