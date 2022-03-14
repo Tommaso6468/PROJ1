@@ -32,7 +32,7 @@ public class StudentenController {
     public void studentLijst() {
         for (int i = 0; i < studenten.size(); i++) {
             System.out.println(studenten.get(i).getNaam());
-            System.out.println(studenten.get(i).getStudentennummer());
+            System.out.print(", "studenten.get(i).getStudentennummer());
         }
     }
 
@@ -49,11 +49,12 @@ public class StudentenController {
 
     public void studentWelkeExamensGehaald() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Voer student naam in:");
-        String naam = scanner.nextLine();
+        System.out.println("Voer studentnummer in:");
+        int Studentnummer = scanner.nextint();
         for (Student st : studenten) {
-            if (st.getNaam().equals(naam)) {
-                st.getGehaald();
+            if (st.getStudentennummer().equals(Studentnummer)) {
+                System.out.println(st.getGehaald());
+
             }
         }
     }
