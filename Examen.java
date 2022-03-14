@@ -3,8 +3,13 @@ public class Examen {
     private final String naam;
     private final Vraag[] vragen;
     private final int minimum;
-    private int aantalGoed;
 
+    /**
+     * Construeert een Examen.
+     * @param naam De naam van het examen.
+     * @param vragen De lijst met vragen in dit examen.
+     * @param minimum Het minimum aantal vragen dat goed moeten zijn om dit examen te halen.
+     */
     public Examen(String naam, Vraag[] vragen, int minimum) {
         if (naam == null || vragen == null) throw new IllegalArgumentException();
         this.naam = naam;
@@ -12,10 +17,19 @@ public class Examen {
         this.minimum = minimum;
     }
 
-    public void controleerVoldoende() {
-
+    /**
+     * Controleert of een aantal vragen goed voldoende is om dit examen te slagen.
+     * @param aantalGoed Het aantal vragen dat goed is.
+     * @return True als het voldoende is, anders false.
+     */
+    public boolean isVoldoende(int aantalGoed) {
+        return aantalGoed >= minimum;
     }
 
+    /**
+     * Krijgt de naam van dit examen.
+     * @return De naam van dit examen.
+     */
     public String getNaam() {
         return naam;
     }
@@ -36,6 +50,6 @@ public class Examen {
         }
         System.out.println();
         System.out.printf("Het examen is voltooid. U heeft %d vragen goed.%n", aantalGoed);
-        return aantalGoed >= minimum;
+        return isVoldoende(aantalGoed);
     }
 }
