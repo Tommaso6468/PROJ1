@@ -5,6 +5,12 @@ public class ExamensController {
 
     ArrayList<Examen> examens = new ArrayList<>();
 
+    public void printExamens() {
+        for (Examen e : examens) {
+            System.out.println(e.getNaam());
+        }
+    }
+
     /**
      * Krijgt de lijst met examens.
      * @return De ArrayList die de examens bevat.
