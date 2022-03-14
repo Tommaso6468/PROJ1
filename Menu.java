@@ -68,12 +68,12 @@ public class Menu {
                     }
                     break;
                 case 7:
-                    System.out.println("Student heeft volgende examens gehaald:");
-                    System.out.println(studentenController.studentWelkeExamensGehaald());
+                    studentenController.studentWelkeExamensGehaald();
                     break;
                 case 8:
                     System.out.println("Deze Student heeft de meeste examens gehaald:");
-                    System.out.println(studentenController.studentMeesteExamensGehaald());
+                    Student student = studentenController.studentMeesteExamensGehaald();
+                    System.out.println(student.getStudentennummer() + " " + student.getNaam());
                     break;
                 case 0:
                     System.exit(0);
