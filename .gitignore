@@ -100,3 +100,5 @@ modules.xml
 
 # Sonarlint plugin
 .idea/sonarlint
+.idea/runConfigurations.xml
+.idea/vcs.xml

@@ -39,11 +39,19 @@ public class Vraag {
             System.out.println("\nTyp uw antwoord in en druk Enter");
 
             //Inlezen antwoord
-            String userInput = scanner.next();
-            Character userInputChar = userInput.charAt(0);
+            int indexAntwoord;
+            while (true) {
+                String userInput = scanner.next();
+                Character userInputChar = userInput.charAt(0);
 
-            //Controle antwoord
-            int indexAntwoord = userInputChar - 'a';
+                //Controle antwoord
+                indexAntwoord = userInputChar - 'a';
+                if (indexAntwoord >= 0 && indexAntwoord < opties.length) {
+                    break;
+                } else {
+                    System.out.println("Voer een geldige optie in.");
+                }
+            }
             eindUserAntwoord = opties[indexAntwoord];
             goedOfFout = opties[indexAntwoord].equals(antwoord);
         }
