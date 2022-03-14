@@ -6,7 +6,7 @@ public class Student {
     private String naam;
     private int studentennummer;
 
-    public ArrayList<Examen> getGehaal() {
+    public ArrayList<Examen> getGehaald() {
         return gehaald;
     }
 
