@@ -1,10 +1,13 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class StudentenController {
 
-    private ArrayList<Student> studenten = new ArrayList<>();
+    private final ArrayList<Student> studenten = new ArrayList<>();
+
+    public ArrayList<Student> getStudentLijst() {
+        return this.studenten;
+    }
 
     public void studentToevoegen() {
         Scanner scanner = new Scanner(System.in);
@@ -20,19 +23,15 @@ public class StudentenController {
 
     public void studentVerwijderen() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Voer student naam in:");
-        int naam = scanner.nextInt();
-        for (Student st : studenten) {
-            if (st.getNaam().equals(naam)) {
-                studenten.remove(st);
-            }
-        }
+        System.out.println("Voer studentnummer in:");
+        int nummer = scanner.nextInt();
+        studenten.removeIf(st -> st.getStudentennummer() == nummer);
     }
 
     public void studentLijst() {
-        for (int i = 0; i < studenten.size(); i++) {
-            System.out.println(studenten.get(i).getNaam());
-            System.out.print(", "studenten.get(i).getStudentennummer());
+        for (Student student : studenten) {
+            System.out.println(student.getNaam());
+            System.out.print(", " + student.getStudentennummer());
         }
     }
 
@@ -50,11 +49,12 @@ public class StudentenController {
     public void studentWelkeExamensGehaald() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Voer studentnummer in:");
-        int Studentnummer = scanner.nextint();
+        int studentnummer = scanner.nextInt();
         for (Student st : studenten) {
-            if (st.getStudentennummer().equals(Studentnummer)) {
-                System.out.println(st.getGehaald());
-
+            if (st.getStudentennummer() == (studentnummer)) {
+                for (int i = 0; i < st.getGehaald().size(); i++) {
+                    System.out.println(st.getGehaald().get(i));
+                }
             }
         }
     }

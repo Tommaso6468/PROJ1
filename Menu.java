@@ -24,7 +24,7 @@ public class Menu {
             System.out.println("8) Welke student heeft de meeste examens gehaald?");
             System.out.println("0) Exit");
 
-            ArrayList<Student> studenten = studentenController.studentLijst();
+            ArrayList<Student> studenten = studentenController.getStudentLijst();
             int aantalStudenten = studenten.size();
 
             keuze = scanner.nextInt();
@@ -32,7 +32,7 @@ public class Menu {
             switch (keuze) {
                 case 1:
                     System.out.println("Examens:");
-                    examensController.getExamens();
+                    examensController.printExamens();
                     break;
                 case 2:
                     System.out.println("Studenten:");
@@ -55,7 +55,7 @@ public class Menu {
                             isGeslaagdExamen = false;
                             Examen examen = examensController.kiesExamen(scanner);
                             isGeslaagdExamen = examen.neemAf();
-                        } else if (i == aantalStudenten) {
+                        } else if (i == aantalStudenten - 1) {
                             studentenController.studentToevoegen();
                         }
                     }
