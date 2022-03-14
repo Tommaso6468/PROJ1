@@ -5,7 +5,7 @@ public class Menu {
     Scanner scanner = new Scanner(System.in);
     private boolean isGeslaagdExamen;
 
-    public void startMenu(){
+    public void startMenu() {
         Scanner scanner = new Scanner(System.in);
 
         //constructors
@@ -13,7 +13,7 @@ public class Menu {
         StudentenController studentenController = new StudentenController();
 
         int keuze;
-        while(true) {
+        while (true) {
             System.out.println("1) Lijst met examens");
             System.out.println("2) Lijst met studenten");
             System.out.println("3) Nieuwe student inschrijven");
@@ -27,25 +27,16 @@ public class Menu {
             ArrayList<Student> studenten = studentenController.studentLijst();
             int aantalStudenten = studenten.size();
 
-            ArrayList<Examen> examen = examensController.getExamens();
-            int aantalExamen = examen.size();
-
             keuze = scanner.nextInt();
 
             switch (keuze) {
                 case 1:
                     System.out.println("Examens:");
-
-                    for(int i = 0; i < aantalExamen; i++){
-                        System.out.println(examen.get(i));
-                    }
+                    examensController.getExamens();
                     break;
                 case 2:
                     System.out.println("Studenten:");
-
-                    for(int i = 0; i < aantalStudenten; i++){
-                        System.out.println(studenten.get(i));
-                    }
+                    studentenController.studentLijst();
                     break;
                 case 3:
                     studentenController.studentToevoegen();
@@ -70,7 +61,7 @@ public class Menu {
                     }
                     break;
                 case 6:
-                    if(isGeslaagdExamen){
+                    if (isGeslaagdExamen) {
                         System.out.println("Student is geslaagd voor het examen!");
                     } else {
                         System.out.println("Student is niet geslaagd voor het examen");
