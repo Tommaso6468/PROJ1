@@ -72,7 +72,8 @@ public class Menu {
                     System.out.println(studentenController.studentWelkeExamensGehaald());
                     break;
                 case 8:
-                    studentenController.studentMeesteExamensGehaald();
+                    System.out.println("Deze Student heeft de meeste examens gehaald:");
+                    System.out.println(studentenController.studentMeesteExamensGehaald(););
                     break;
                 case 0:
                     System.exit(0);
