@@ -35,22 +35,14 @@ public class ExamensController {
     /**
      * Laat de gebruiker een examen uit de lijst kiezen.
      * @param scanner De scanner om de gebruikersinvoer uit te lezen.
-     * @return De gekozen examen.
+     * @return De gekozen examen, of null als er geen examen is gekozen.
      */
     public Examen kiesExamen(Scanner scanner) {
         lijstExamens();
         int aantal = this.getAantalExamens();
         if (aantal == 0) return null;
 
-        while (true) {
-            System.out.println("Geef het nummer van het examen dat u wilt afnemen.");
-            int index = Util.leesInt(scanner) - 1;
-            if (index < 0 || index > aantal) {
-                System.out.println("Er is geen examen met dat nummer; probeer opnieuw.");
-            }
-            else {
-                return examens.get(index);
-            }
-        }
+        System.out.println("Geef het nummer van het examen.");
+        return examens.get(Util.leesInt(scanner, 1, aantal) - 1);
     }
 }
