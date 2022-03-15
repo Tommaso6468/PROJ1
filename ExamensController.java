@@ -33,12 +33,6 @@ public class ExamensController {
         return new ExamensController(examens);
     }
 
-    public void printExamens() {
-        for (Examen e : examens) {
-            System.out.println(e.getNaam());
-        }
-    }
-
     /**
      * Krijgt de lijst met examens.
      * @return De ArrayList die de examens bevat.
@@ -82,12 +76,12 @@ public class ExamensController {
     public void lijstExamens() {
         int aantal = this.getAantalExamens();
         switch (aantal) {
-            case 0 -> System.out.println("Er zijn geen examens beschikbaar.%n");
-            case 1 -> System.out.println("Er is 1 examen beschikbaar:%n");
+            case 0 -> System.out.println("Er zijn geen examens beschikbaar.");
+            case 1 -> System.out.println("Er is 1 examen beschikbaar:");
             default -> System.out.printf("Er zijn %d examens beschikbaar:%n", aantal);
         }
         for (int i = 0; i < aantal; i++) {
-            System.out.printf("%d. %s%n", i+1, examens.get(i).getNaam());
+            System.out.printf("%d) %s%n", i+1, examens.get(i).getNaam());
         }
     }
 

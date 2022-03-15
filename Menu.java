@@ -66,7 +66,6 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         boolean isGeslaagdExamen = false;
 
-        int keuze;
         while (true) {
             System.out.println("1) Lijst met examens");
             System.out.println("2) Lijst met studenten");
@@ -81,15 +80,13 @@ public class Menu {
             ArrayList<Student> studenten = studentenController.getStudentLijst();
             int aantalStudenten = studenten.size();
 
-            keuze = scanner.nextInt();
+            int keuze = scanner.nextInt();
 
             switch (keuze) {
                 case 1:
-                    System.out.println("Examens:");
-                    examensController.printExamens();
+                    examensController.lijstExamens();
                     break;
                 case 2:
-                    System.out.println("Studenten:");
                     studentenController.studentLijst();
                     break;
                 case 3:
@@ -106,7 +103,6 @@ public class Menu {
                     //loopt door studentenLijst om te zoeken naar het leerlingnummer
                     for (int i = 0; i < aantalStudenten; i++) {
                         if (studenten.get(i).getStudentennummer() == studentenNummer) {
-                            isGeslaagdExamen = false;
                             Examen examen = examensController.kiesExamen(scanner);
                             isGeslaagdExamen = examen.neemAf();
                         } else if (i == aantalStudenten - 1) {
@@ -125,15 +121,14 @@ public class Menu {
                     studentenController.studentWelkeExamensGehaald();
                     break;
                 case 8:
-                    System.out.println("Deze Student heeft de meeste examens gehaald:");
+                    System.out.println("Deze student heeft de meeste examens gehaald:");
                     Student student = studentenController.studentMeesteExamensGehaald();
                     System.out.println(student.getStudentennummer() + " " + student.getNaam());
                     break;
                 case 0:
-                    System.exit(0);
-                    break;
+                    return;
                 default:
-                    System.out.println("Dit is geen menu optie!");
+                    System.out.println("Dit is geen menu-optie!");
                     break;
             }
         }

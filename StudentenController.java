@@ -29,6 +29,7 @@ public class StudentenController {
     }
 
     public void studentLijst() {
+        System.out.println("Studenten:");
         for (Student student : studenten) {
             System.out.println(student.getNaam());
             System.out.print(", " + student.getStudentennummer());
