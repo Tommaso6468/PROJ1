@@ -24,10 +24,6 @@ public class StudentenController {
     }
 
     public void studentToevoegen(Scanner scanner) {
-        Student student = new Student();
-        System.out.println("Voer studenten naam in:");
-        String naam = scanner.nextLine();
-        student.setNaam(naam);
         int studentnummer;
         while (true) {
             studentnummer = vraagOmStudentnummer(scanner);
@@ -36,7 +32,15 @@ public class StudentenController {
             }
             System.out.println("Er is al een student met dit nummer; probeer opnieuw.");
         }
+        studentToevoegen(scanner, studentnummer);
+    }
+
+    public void studentToevoegen(Scanner scanner, int studentnummer) {
+        Student student = new Student();
         student.setStudentennummer(studentnummer);
+        System.out.println("Voer de naam van de student in:");
+        String naam = scanner.nextLine();
+        student.setNaam(naam);
         studenten.add(student);
     }
 
