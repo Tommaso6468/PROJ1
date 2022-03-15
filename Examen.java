@@ -1,6 +1,7 @@
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Examen {
@@ -80,5 +81,10 @@ public class Examen {
         System.out.println();
         System.out.printf("Het examen is voltooid. U heeft %d vragen goed.%n", aantalGoed);
         return isVoldoende(aantalGoed);
+    }
+
+    @Override
+    public String toString() {
+        return naam;
     }
 }

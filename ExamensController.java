@@ -74,15 +74,7 @@ public class ExamensController {
      * Drukt een lijst met alle examens af.
      */
     public void lijstExamens() {
-        int aantal = this.getAantalExamens();
-        switch (aantal) {
-            case 0 -> System.out.println("Er zijn geen examens beschikbaar.");
-            case 1 -> System.out.println("Er is 1 examen beschikbaar:");
-            default -> System.out.printf("Er zijn %d examens beschikbaar:%n", aantal);
-        }
-        for (int i = 0; i < aantal; i++) {
-            System.out.printf("%d) %s%n", i+1, examens.get(i).getNaam());
-        }
+        Util.printArrayList(examens, "examen beschikbaar", "examens beschikbaar");
     }
 
     /**

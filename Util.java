@@ -1,5 +1,6 @@
 import com.github.cliftonlabs.json_simple.JsonObject;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Util {
@@ -26,6 +27,18 @@ public class Util {
                 continue;
             }
             return getal;
+        }
+    }
+
+    public static void printArrayList(ArrayList<?> lijst, String enkelvoud, String meervoud) {
+        int aantal = lijst.size();
+        switch (aantal) {
+            case 0 -> System.out.printf("Er zijn geen %s.%n", meervoud);
+            case 1 -> System.out.printf("Er is 1 %s:%n", enkelvoud);
+            default -> System.out.printf("Er zijn %d %s:%n", aantal, meervoud);
+        }
+        for (int i = 0; i < aantal; i++) {
+            System.out.printf("%d) %s%n", i+1, lijst.get(i).toString());
         }
     }
 

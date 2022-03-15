@@ -29,4 +29,9 @@ public class Student {
     public void setGehaald(ArrayList<Examen> gehaald) {
         this.gehaald = gehaald;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s (%d)", naam, studentennummer);
+    }
 }

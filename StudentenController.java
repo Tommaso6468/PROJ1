@@ -25,11 +25,7 @@ public class StudentenController {
     }
 
     public void studentLijst() {
-        System.out.println("Studenten:");
-        for (Student student : studenten) {
-            System.out.println(student.getNaam());
-            System.out.print(", " + student.getStudentennummer());
-        }
+        Util.printArrayList(studenten, "student", "studenten");
     }
 
     public Student studentMeesteExamensGehaald() {
@@ -47,9 +43,7 @@ public class StudentenController {
         int studentnummer = vraagOmStudentnummer(scanner);
         for (Student st : studenten) {
             if (st.getStudentennummer() == (studentnummer)) {
-                for (int i = 0; i < st.getGehaald().size(); i++) {
-                    System.out.println(st.getGehaald().get(i));
-                }
+                Util.printArrayList(st.getGehaald(), "examen gehaald", "examens gehaald");
             }
         }
     }
