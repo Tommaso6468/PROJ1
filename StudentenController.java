@@ -9,8 +9,7 @@ public class StudentenController {
         return this.studenten;
     }
 
-    public void studentToevoegen() {
-        Scanner scanner = new Scanner(System.in);
+    public void studentToevoegen(Scanner scanner) {
         Student student = new Student();
         System.out.println("Voer studenten naam in:");
         String naam = scanner.nextLine();
@@ -20,8 +19,7 @@ public class StudentenController {
         studenten.add(student);
     }
 
-    public void studentVerwijderen() {
-        Scanner scanner = new Scanner(System.in);
+    public void studentVerwijderen(Scanner scanner) {
         int nummer = vraagOmStudentnummer(scanner);
         studenten.removeIf(st -> st.getStudentennummer() == nummer);
     }
@@ -45,8 +43,7 @@ public class StudentenController {
     }
 
 
-    public void studentWelkeExamensGehaald() {
-        Scanner scanner = new Scanner(System.in);
+    public void studentWelkeExamensGehaald(Scanner scanner) {
         int studentnummer = vraagOmStudentnummer(scanner);
         for (Student st : studenten) {
             if (st.getStudentennummer() == (studentnummer)) {

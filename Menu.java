@@ -90,10 +90,10 @@ public class Menu {
                     studentenController.studentLijst();
                     break;
                 case 3:
-                    studentenController.studentToevoegen();
+                    studentenController.studentToevoegen(scanner);
                     break;
                 case 4:
-                    studentenController.studentVerwijderen();
+                    studentenController.studentVerwijderen(scanner);
                     break;
                 case 5:
                     //check of student in lijst staat
@@ -104,9 +104,9 @@ public class Menu {
                     for (int i = 0; i < aantalStudenten; i++) {
                         if (studenten.get(i).getStudentennummer() == studentenNummer) {
                             Examen examen = examensController.kiesExamen(scanner);
-                            isGeslaagdExamen = examen.neemAf();
+                            isGeslaagdExamen = examen.neemAf(scanner);
                         } else if (i == aantalStudenten - 1) {
-                            studentenController.studentToevoegen();
+                            studentenController.studentToevoegen(scanner);
                         }
                     }
                     break;
@@ -118,7 +118,7 @@ public class Menu {
                     }
                     break;
                 case 7:
-                    studentenController.studentWelkeExamensGehaald();
+                    studentenController.studentWelkeExamensGehaald(scanner);
                     break;
                 case 8:
                     System.out.println("Deze student heeft de meeste examens gehaald:");

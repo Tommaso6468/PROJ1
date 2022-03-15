@@ -1,6 +1,8 @@
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 
+import java.util.Scanner;
+
 public class Examen {
 
     private final String naam;
@@ -62,14 +64,15 @@ public class Examen {
 
     /**
      * Neemt het examen af; stelt alle vragen in het examen en checkt of het minimum aantal goed is gehaald.
+     * @param scanner De scanner om de gebruikersinvoer uit te lezen.
      * @return True als het minimum aantal goed is gehaald; anders false.
      */
-    public boolean neemAf() {
+    public boolean neemAf(Scanner scanner) {
         int aantalGoed = 0;
         for (int i = 0; i < vragen.length; i++) {
             System.out.println();
             System.out.printf("Vraag %d:%n", i+1);
-            boolean isGoed = vragen[i].stelVraag();
+            boolean isGoed = vragen[i].stelVraag(scanner);
             if (isGoed) {
                 aantalGoed++;
             }
