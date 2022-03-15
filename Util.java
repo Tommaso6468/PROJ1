@@ -22,7 +22,7 @@ public class Util {
                 continue;
             }
             if (getal < min || getal > max) {
-                System.out.printf("Het getal moet minstens %d en hoogstens %d zijn; probeer opnieuw.%n", min, max);
+                System.out.printf("Het moet minstens %d en hoogstens %d zijn; probeer opnieuw.%n", min, max);
                 continue;
             }
             return getal;

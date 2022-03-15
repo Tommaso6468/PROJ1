@@ -80,7 +80,7 @@ public class Menu {
             ArrayList<Student> studenten = studentenController.getStudentLijst();
             int aantalStudenten = studenten.size();
 
-            int keuze = scanner.nextInt();
+            int keuze = Util.leesInt(scanner, 0, 8);
 
             switch (keuze) {
                 case 1:
@@ -98,7 +98,7 @@ public class Menu {
                 case 5:
                     //check of student in lijst staat
                     System.out.println("Voer je leerlingennummer in:");
-                    int studentenNummer = scanner.nextInt();
+                    int studentenNummer = Util.leesInt(scanner, 0, Integer.MAX_VALUE);
 
                     //loopt door studentenLijst om te zoeken naar het leerlingnummer
                     for (int i = 0; i < aantalStudenten; i++) {
@@ -127,9 +127,6 @@ public class Menu {
                     break;
                 case 0:
                     return;
-                default:
-                    System.out.println("Dit is geen menu-optie!");
-                    break;
             }
         }
     }

@@ -15,16 +15,14 @@ public class StudentenController {
         System.out.println("Voer studenten naam in:");
         String naam = scanner.nextLine();
         student.setNaam(naam);
-        System.out.println("Voer studentennummer in:");
-        int studentnummer = scanner.nextInt();
+        int studentnummer = vraagOmStudentnummer(scanner);
         student.setStudentennummer(studentnummer);
         studenten.add(student);
     }
 
     public void studentVerwijderen() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Voer studentnummer in:");
-        int nummer = scanner.nextInt();
+        int nummer = vraagOmStudentnummer(scanner);
         studenten.removeIf(st -> st.getStudentennummer() == nummer);
     }
 
@@ -49,8 +47,7 @@ public class StudentenController {
 
     public void studentWelkeExamensGehaald() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Voer studentnummer in:");
-        int studentnummer = scanner.nextInt();
+        int studentnummer = vraagOmStudentnummer(scanner);
         for (Student st : studenten) {
             if (st.getStudentennummer() == (studentnummer)) {
                 for (int i = 0; i < st.getGehaald().size(); i++) {
@@ -60,4 +57,8 @@ public class StudentenController {
         }
     }
 
+    private int vraagOmStudentnummer(Scanner scanner) {
+        System.out.println("Voer studentnummer in:");
+        return Util.leesInt(scanner, 0, Integer.MAX_VALUE);
+    }
 }
