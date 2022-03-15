@@ -28,7 +28,14 @@ public class StudentenController {
         System.out.println("Voer studenten naam in:");
         String naam = scanner.nextLine();
         student.setNaam(naam);
-        int studentnummer = vraagOmStudentnummer(scanner);
+        int studentnummer;
+        while (true) {
+            studentnummer = vraagOmStudentnummer(scanner);
+            if (getStudentMetNummer(studentnummer) == null) {
+                break;
+            }
+            System.out.println("Er is al een student met dit nummer; probeer opnieuw.");
+        }
         student.setStudentennummer(studentnummer);
         studenten.add(student);
     }
