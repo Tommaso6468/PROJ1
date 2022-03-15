@@ -35,13 +35,14 @@ public class StudentenController {
         studentToevoegen(scanner, studentnummer);
     }
 
-    public void studentToevoegen(Scanner scanner, int studentnummer) {
+    public Student studentToevoegen(Scanner scanner, int studentnummer) {
         Student student = new Student();
         student.setStudentennummer(studentnummer);
         System.out.println("Voer de naam van de student in:");
         String naam = scanner.nextLine();
         student.setNaam(naam);
         studenten.add(student);
+        return student;
     }
 
     public void studentVerwijderen(Scanner scanner) {

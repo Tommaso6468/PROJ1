@@ -101,10 +101,13 @@ public class Menu {
                     int studentenNummer = Util.leesInt(scanner, 0, Integer.MAX_VALUE);
                     Student student = studentenController.getStudentMetNummer(studentenNummer);
                     if (student == null) {
-                        studentenController.studentToevoegen(scanner, studentenNummer);
+                        student = studentenController.studentToevoegen(scanner, studentenNummer);
                     }
                     Examen examen = examensController.kiesExamen(scanner);
                     isGeslaagdExamen = examen.neemAf(scanner);
+                    if (isGeslaagdExamen) {
+                        student.setGehaald(examen);
+                    }
                     break;
                 case 6:
                     if (isGeslaagdExamen) {
