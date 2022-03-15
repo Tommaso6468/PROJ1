@@ -128,6 +128,9 @@ public class Menu {
                 case 0:
                     return;
             }
+
+            System.out.println("Druk op enter om terug te gaan naar het menu.");
+            scanner.nextLine();
         }
     }
 }
