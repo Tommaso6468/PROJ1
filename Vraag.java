@@ -1,3 +1,6 @@
+import com.github.cliftonlabs.json_simple.JsonArray;
+import com.github.cliftonlabs.json_simple.JsonObject;
+
 import java.util.*;
 
 public class Vraag {
@@ -12,6 +15,41 @@ public class Vraag {
         this.vraag = vraag;
         this.opties = opties;
         this.antwoord = antwoord;
+    }
+
+    /**
+     * Leest de info over een vraag uit een JSON-object.
+     * @param object Het object met de info over deze vraag.
+     * @return De Vraag geconstrueerd met de info uit het object.
+     * @throws InvalidJsonFormatException De vraag is niet goed geformatteerd.
+     */
+    public static Vraag leesVanJson(JsonObject object) throws InvalidJsonFormatException {
+        if (!object.containsKey("vraag") || !object.containsKey("antwoord")) {
+            return null;
+        }
+        String vraag = Util.leesJsonString(object, "vraag");
+        String antwoord = Util.leesJsonString(object, "antwoord");
+
+        Object optiesInput = object.get("opties");
+        String[] opties;
+        if (optiesInput == null) {
+            opties = null;
+        }
+        else {
+            if (!(optiesInput instanceof JsonArray array)) {
+                throw new InvalidJsonFormatException("opties", "moet null of een array zijn");
+            }
+            opties = new String[array.size()];
+            for (int i = 0; i < opties.length; i++) {
+                Object element = array.get(i);
+                if (element == null) {
+                    throw new InvalidJsonFormatException("opties", "moet geen null bevatten");
+                }
+                opties[i] = element.toString();
+            }
+        }
+
+        return new Vraag(vraag, opties, antwoord);
     }
 
     public boolean stelVraag() {

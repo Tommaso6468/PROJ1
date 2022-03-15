@@ -1,3 +1,6 @@
+import com.github.cliftonlabs.json_simple.JsonArray;
+import com.github.cliftonlabs.json_simple.JsonObject;
+
 public class Examen {
 
     private final String naam;
@@ -15,6 +18,29 @@ public class Examen {
         this.naam = naam;
         this.vragen = vragen;
         this.minimum = minimum;
+    }
+
+    /**
+     * Leest de info over een examen uit een JSON-object.
+     * @param object Het object met de info over dit examen.
+     * @return Het Examen geconstrueerd met de info uit het object, of null als de JSON niet goed was geformatteerd.
+     * @throws InvalidJsonFormatException De vraag is niet goed geformatteerd.
+     */
+    public static Examen leesVanJson(JsonObject object) throws InvalidJsonFormatException {
+        String naam = Util.leesJsonString(object, "naam");
+        Object vragenInput = Util.getJsonWaardeOfThrow(object, "vragen");
+        if (!(vragenInput instanceof JsonArray vragenArray)) {
+            throw new InvalidJsonFormatException("vragen", "moet een array zijn");
+        }
+        Vraag[] vragen = new Vraag[vragenArray.size()];
+        for (int i = 0; i < vragen.length; i++) {
+            if (!(vragenArray.get(i) instanceof JsonObject vraagObject)) {
+                throw new InvalidJsonFormatException("vragen", "moet objecten bevatten");
+            }
+            vragen[i] = Vraag.leesVanJson(vraagObject);
+        }
+        int minimum = Util.leesJsonInt(object, "minimum", 0, vragen.length);
+        return new Examen(naam, vragen, minimum);
     }
 
     /**
