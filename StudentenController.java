@@ -9,6 +9,20 @@ public class StudentenController {
         return this.studenten;
     }
 
+    /**
+     * Haalt de student up met een bepaald nummer
+     * @param nummer Het studentennummer
+     * @return De student met dat nummer, of null als die er niet is.
+     */
+    public Student getStudentMetNummer(int nummer) {
+        for (Student student : studenten) {
+            if (student.getStudentennummer() == nummer) {
+                return student;
+            }
+        }
+        return null;
+    }
+
     public void studentToevoegen(Scanner scanner) {
         Student student = new Student();
         System.out.println("Voer studenten naam in:");
@@ -38,14 +52,14 @@ public class StudentenController {
         return maxex;
     }
 
-
     public void studentWelkeExamensGehaald(Scanner scanner) {
         int studentnummer = vraagOmStudentnummer(scanner);
-        for (Student st : studenten) {
-            if (st.getStudentennummer() == (studentnummer)) {
-                Util.printArrayList(st.getGehaald(), "examen gehaald", "examens gehaald");
-            }
+        Student student = getStudentMetNummer(studentnummer);
+        if (student == null) {
+            System.out.println("Er is geen student met dat nummer.");
+            return;
         }
+        Util.printArrayList(student.getGehaald(), "examen gehaald", "examens gehaald");
     }
 
     private int vraagOmStudentnummer(Scanner scanner) {

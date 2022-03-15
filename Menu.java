@@ -99,16 +99,12 @@ public class Menu {
                     //check of student in lijst staat
                     System.out.println("Voer je leerlingennummer in:");
                     int studentenNummer = Util.leesInt(scanner, 0, Integer.MAX_VALUE);
-
-                    //loopt door studentenLijst om te zoeken naar het leerlingnummer
-                    for (int i = 0; i < aantalStudenten; i++) {
-                        if (studenten.get(i).getStudentennummer() == studentenNummer) {
-                            Examen examen = examensController.kiesExamen(scanner);
-                            isGeslaagdExamen = examen.neemAf(scanner);
-                        } else if (i == aantalStudenten - 1) {
-                            studentenController.studentToevoegen(scanner);
-                        }
+                    Student student = studentenController.getStudentMetNummer(studentenNummer);
+                    if (student == null) {
+                        studentenController.studentToevoegen(scanner);
                     }
+                    Examen examen = examensController.kiesExamen(scanner);
+                    isGeslaagdExamen = examen.neemAf(scanner);
                     break;
                 case 6:
                     if (isGeslaagdExamen) {
@@ -122,8 +118,7 @@ public class Menu {
                     break;
                 case 8:
                     System.out.println("Deze student heeft de meeste examens gehaald:");
-                    Student student = studentenController.studentMeesteExamensGehaald();
-                    System.out.println(student.getStudentennummer() + " " + student.getNaam());
+                    System.out.println(studentenController.studentMeesteExamensGehaald().toString());
                     break;
                 case 0:
                     return;
