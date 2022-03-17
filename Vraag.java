@@ -56,18 +56,15 @@ public class Vraag {
         if (opties != null) {
             //Meerdere opties
 
-            //Preparen voor printen opties
+            //Shuffle de opties
             List<String> optiesList = Arrays.asList(opties);
             Collections.shuffle(optiesList);
-            ArrayList<Character> letters = new ArrayList<>();
-            char a;
-            for (a = 'a'; a <= 'z'; ++a) {
-                letters.add(a);
-            }
 
             //Printen opties
-            for (int i = 0; i < opties.length; i++) {
-                System.out.println(letters.get(i) + ") " + opties[i]);
+            char letter = 'a';
+            for (String optie : opties) {
+                System.out.println(letter + ") " + optie);
+                letter++;
             }
 
             System.out.println("Typ uw antwoord in en druk Enter");
