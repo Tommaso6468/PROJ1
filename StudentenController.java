@@ -9,30 +9,49 @@ public class StudentenController {
         return this.studenten;
     }
 
-    public void studentToevoegen() {
-        Scanner scanner = new Scanner(System.in);
-        Student student = new Student();
-        System.out.println("Voer studenten naam in:");
-        String naam = scanner.nextLine();
-        student.setNaam(naam);
-        System.out.println("Voer studentennummer in:");
-        int studentnummer = scanner.nextInt();
-        student.setStudentennummer(studentnummer);
-        studenten.add(student);
+    /**
+     * Haalt de student up met een bepaald nummer
+     * @param nummer Het studentennummer
+     * @return De student met dat nummer, of null als die er niet is.
+     */
+    public Student getStudentMetNummer(int nummer) {
+        for (Student student : studenten) {
+            if (student.getStudentennummer() == nummer) {
+                return student;
+            }
+        }
+        return null;
     }
 
-    public void studentVerwijderen() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Voer studentnummer in:");
-        int nummer = scanner.nextInt();
+    public void studentToevoegen(Scanner scanner) {
+        int studentnummer;
+        while (true) {
+            studentnummer = vraagOmStudentnummer(scanner);
+            if (getStudentMetNummer(studentnummer) == null) {
+                break;
+            }
+            System.out.println("Er is al een student met dit nummer; probeer opnieuw.");
+        }
+        studentToevoegen(scanner, studentnummer);
+    }
+
+    public Student studentToevoegen(Scanner scanner, int studentnummer) {
+        Student student = new Student();
+        student.setStudentennummer(studentnummer);
+        System.out.println("Voer de naam van de student in:");
+        String naam = scanner.nextLine();
+        student.setNaam(naam);
+        studenten.add(student);
+        return student;
+    }
+
+    public void studentVerwijderen(Scanner scanner) {
+        int nummer = vraagOmStudentnummer(scanner);
         studenten.removeIf(st -> st.getStudentennummer() == nummer);
     }
 
     public void studentLijst() {
-        for (Student student : studenten) {
-            System.out.println(student.getNaam());
-            System.out.print(", " + student.getStudentennummer());
-        }
+        Util.printArrayList(studenten, "student", "studenten");
     }
 
     public Student studentMeesteExamensGehaald() {
@@ -45,18 +64,18 @@ public class StudentenController {
         return maxex;
     }
 
-
-    public void studentWelkeExamensGehaald() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Voer studentnummer in:");
-        int studentnummer = scanner.nextInt();
-        for (Student st : studenten) {
-            if (st.getStudentennummer() == (studentnummer)) {
-                for (int i = 0; i < st.getGehaald().size(); i++) {
-                    System.out.println(st.getGehaald().get(i));
-                }
-            }
+    public void studentWelkeExamensGehaald(Scanner scanner) {
+        int studentnummer = vraagOmStudentnummer(scanner);
+        Student student = getStudentMetNummer(studentnummer);
+        if (student == null) {
+            System.out.println("Er is geen student met dat nummer.");
+            return;
         }
+        Util.printArrayList(student.getGehaald(), "examen gehaald", "examens gehaald");
     }
 
+    private int vraagOmStudentnummer(Scanner scanner) {
+        System.out.println("Voer studentnummer in:");
+        return Util.leesInt(scanner, 0, Integer.MAX_VALUE);
+    }
 }

@@ -29,4 +29,15 @@ public class Student {
     public void setGehaald(ArrayList<Examen> gehaald) {
         this.gehaald = gehaald;
     }
+
+    public void setGehaald(Examen examen) {
+        if (!this.gehaald.contains(examen)) {
+            this.gehaald.add(examen);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s (%d)", naam, studentennummer);
+    }
 }

@@ -52,9 +52,7 @@ public class Vraag {
         return new Vraag(vraag, opties, antwoord);
     }
 
-    public boolean stelVraag() {
-
-        Scanner scanner = new Scanner(System.in);
+    public boolean stelVraag(Scanner scanner) {
         System.out.println(vraag);
 
         if (opties != null) {

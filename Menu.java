@@ -66,7 +66,6 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         boolean isGeslaagdExamen = false;
 
-        int keuze;
         while (true) {
             System.out.println("1) Lijst met examens");
             System.out.println("2) Lijst met studenten");
@@ -81,37 +80,33 @@ public class Menu {
             ArrayList<Student> studenten = studentenController.getStudentLijst();
             int aantalStudenten = studenten.size();
 
-            keuze = scanner.nextInt();
+            int keuze = Util.leesInt(scanner, 0, 8);
 
             switch (keuze) {
                 case 1:
-                    System.out.println("Examens:");
-                    examensController.printExamens();
+                    examensController.lijstExamens();
                     break;
                 case 2:
-                    System.out.println("Studenten:");
                     studentenController.studentLijst();
                     break;
                 case 3:
-                    studentenController.studentToevoegen();
+                    studentenController.studentToevoegen(scanner);
                     break;
                 case 4:
-                    studentenController.studentVerwijderen();
+                    studentenController.studentVerwijderen(scanner);
                     break;
                 case 5:
                     //check of student in lijst staat
                     System.out.println("Voer je leerlingennummer in:");
-                    int studentenNummer = scanner.nextInt();
-
-                    //loopt door studentenLijst om te zoeken naar het leerlingnummer
-                    for (int i = 0; i < aantalStudenten; i++) {
-                        if (studenten.get(i).getStudentennummer() == studentenNummer) {
-                            isGeslaagdExamen = false;
-                            Examen examen = examensController.kiesExamen(scanner);
-                            isGeslaagdExamen = examen.neemAf();
-                        } else if (i == aantalStudenten - 1) {
-                            studentenController.studentToevoegen();
-                        }
+                    int studentenNummer = Util.leesInt(scanner, 0, Integer.MAX_VALUE);
+                    Student student = studentenController.getStudentMetNummer(studentenNummer);
+                    if (student == null) {
+                        student = studentenController.studentToevoegen(scanner, studentenNummer);
+                    }
+                    Examen examen = examensController.kiesExamen(scanner);
+                    isGeslaagdExamen = examen.neemAf(scanner);
+                    if (isGeslaagdExamen) {
+                        student.setGehaald(examen);
                     }
                     break;
                 case 6:
@@ -122,20 +117,18 @@ public class Menu {
                     }
                     break;
                 case 7:
-                    studentenController.studentWelkeExamensGehaald();
+                    studentenController.studentWelkeExamensGehaald(scanner);
                     break;
                 case 8:
-                    System.out.println("Deze Student heeft de meeste examens gehaald:");
-                    Student student = studentenController.studentMeesteExamensGehaald();
-                    System.out.println(student.getStudentennummer() + " " + student.getNaam());
+                    System.out.println("Deze student heeft de meeste examens gehaald:");
+                    System.out.println(studentenController.studentMeesteExamensGehaald().toString());
                     break;
                 case 0:
-                    System.exit(0);
-                    break;
-                default:
-                    System.out.println("Dit is geen menu optie!");
-                    break;
+                    return;
             }
+
+            System.out.println("Druk op enter om terug te gaan naar het menu.");
+            scanner.nextLine();
         }
     }
 }
