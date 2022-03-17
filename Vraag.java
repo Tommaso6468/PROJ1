@@ -24,9 +24,6 @@ public class Vraag {
      * @throws InvalidJsonFormatException De vraag is niet goed geformatteerd.
      */
     public static Vraag leesVanJson(JsonObject object) throws InvalidJsonFormatException {
-        if (!object.containsKey("vraag") || !object.containsKey("antwoord")) {
-            return null;
-        }
         String vraag = Util.leesJsonString(object, "vraag");
         String antwoord = Util.leesJsonString(object, "antwoord");
 
@@ -53,7 +50,8 @@ public class Vraag {
     }
 
     public boolean stelVraag(Scanner scanner) {
-        System.out.println(vraag + "\n");
+        System.out.println(vraag);
+        System.out.println();
 
         if (opties != null) {
             //Meerdere opties
@@ -72,7 +70,7 @@ public class Vraag {
                 System.out.println(letters.get(i) + ") " + opties[i]);
             }
 
-            System.out.println("\nTyp uw antwoord in en druk Enter");
+            System.out.println("Typ uw antwoord in en druk Enter");
 
             //Inlezen antwoord
             int indexAntwoord;
@@ -93,7 +91,7 @@ public class Vraag {
         } else {
 
             // Open vraag
-            System.out.println("\nTyp uw antwoord in en druk Enter");
+            System.out.println("Typ uw antwoord in en druk Enter");
             String userInput = scanner.nextLine();
             eindUserAntwoord = userInput;
             goedOfFout = userInput.equalsIgnoreCase(antwoord);
