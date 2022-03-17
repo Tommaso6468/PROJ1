@@ -1,16 +1,70 @@
+import com.github.cliftonlabs.json_simple.JsonArray;
+import com.github.cliftonlabs.json_simple.JsonException;
+import com.github.cliftonlabs.json_simple.Jsoner;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
-    Scanner scanner = new Scanner(System.in);
-    private boolean isGeslaagdExamen;
 
-    public void startMenu() {
+    private static ExamensController examensController;
+    private static StudentenController studentenController;
+
+    public static void main(String[] args) {
+        System.out.println("Welkom bij (naam programma)!");
+
+        String error = leesExamens();
+        if (error != null) {
+            System.out.println("Het programma kan helaas niet worden opgestart, omdat de info over de examens niet kan worden ingelezen:");
+            System.out.println(error);
+            return;
+        }
+
+        // TODO
+        studentenController = new StudentenController();
+
+        startMenu();
+    }
+
+    /**
+     * Creëert de ExamensController door de info van de JSON te lezen.
+     * @return Als er een fout is, de beschrijving van de fout; anders null.
+     */
+    private static String leesExamens() {
+        FileReader reader;
+        try {
+            // TODO
+            reader = new FileReader("./examens.json");
+        }
+        catch (FileNotFoundException exception) {
+            return "Het bestand \"examens.json\" mist.";
+        }
+
+        Object rootObj;
+        try {
+            rootObj = Jsoner.deserialize(reader);
+            if (!(rootObj instanceof JsonArray array)) {
+                return "De JSON moet een array met examens bevatten.";
+            }
+            examensController = ExamensController.leesVanJson(array);
+        }
+        catch (JsonException exception) {
+            //exception.printStackTrace();
+            return "Er zit een syntaxisfout in de JSON.";
+        }
+        catch (InvalidJsonFormatException exception) {
+            return "De JSON is niet goed geformatteerd. " + exception.getMessage();
+        }
+        return null;
+    }
+
+    public static void startMenu() {
+        if (examensController == null || studentenController == null) throw new IllegalStateException();
+
         Scanner scanner = new Scanner(System.in);
-
-        //constructors
-        ExamensController examensController = new ExamensController();
-        StudentenController studentenController = new StudentenController();
+        boolean isGeslaagdExamen = false;
 
         int keuze;
         while (true) {
