@@ -77,7 +77,7 @@ public class Vraag {
             //Inlezen antwoord
             int indexAntwoord;
             while (true) {
-                String userInput = scanner.next();
+                String userInput = scanner.nextLine();
                 char userInputChar = userInput.charAt(0);
 
                 //Controle antwoord
@@ -94,7 +94,7 @@ public class Vraag {
 
             // Open vraag
             System.out.println("\nTyp uw antwoord in en druk Enter");
-            String userInput = scanner.next();
+            String userInput = scanner.nextLine();
             eindUserAntwoord = userInput;
             goedOfFout = userInput.equalsIgnoreCase(antwoord);
 
