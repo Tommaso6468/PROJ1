@@ -53,7 +53,7 @@ public class Vraag {
     }
 
     public boolean stelVraag(Scanner scanner) {
-        System.out.println(vraag);
+        System.out.println(vraag + "\n");
 
         if (opties != null) {
             //Meerdere opties
@@ -78,7 +78,7 @@ public class Vraag {
             int indexAntwoord;
             while (true) {
                 String userInput = scanner.next();
-                Character userInputChar = userInput.charAt(0);
+                char userInputChar = userInput.charAt(0);
 
                 //Controle antwoord
                 indexAntwoord = userInputChar - 'a';
@@ -90,14 +90,15 @@ public class Vraag {
             }
             eindUserAntwoord = opties[indexAntwoord];
             goedOfFout = opties[indexAntwoord].equals(antwoord);
+        } else {
+
+            // Open vraag
+            System.out.println("\nTyp uw antwoord in en druk Enter");
+            String userInput = scanner.next();
+            eindUserAntwoord = userInput;
+            goedOfFout = userInput.equalsIgnoreCase(antwoord);
+
         }
-
-        // Open vraag
-        System.out.println("\nTyp uw antwoord in en druk Enter");
-        String userInput = scanner.next();
-        eindUserAntwoord = userInput;
-        goedOfFout = userInput.equalsIgnoreCase(antwoord);
-
         return goedOfFout;
     }
 
