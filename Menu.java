@@ -77,7 +77,7 @@ public class Menu {
             System.out.println("8) Welke student heeft de meeste examens gehaald?");
             System.out.println("0) Exit");
 
-            ArrayList<Student> studenten = studentenController.getStudentLijst();
+            ArrayList<Student> studenten = studentenController.getLijst();
             int aantalStudenten = studenten.size();
 
             int keuze = Util.leesInt(scanner, 0, 8);

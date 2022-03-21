@@ -1,12 +1,9 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public class StudentenController {
+public class StudentenController extends Controller<Student> {
 
-    private final ArrayList<Student> studenten = new ArrayList<>();
-
-    public ArrayList<Student> getStudentLijst() {
-        return this.studenten;
+    public StudentenController() {
+        super();
     }
 
     /**
@@ -15,7 +12,7 @@ public class StudentenController {
      * @return De student met dat nummer, of null als die er niet is.
      */
     public Student getStudentMetNummer(int nummer) {
-        for (Student student : studenten) {
+        for (Student student : getLijst()) {
             if (student.getStudentennummer() == nummer) {
                 return student;
             }
@@ -41,22 +38,22 @@ public class StudentenController {
         System.out.println("Voer de naam van de student in:");
         String naam = scanner.nextLine();
         student.setNaam(naam);
-        studenten.add(student);
+        voegToe(student);
         return student;
     }
 
     public void studentVerwijderen(Scanner scanner) {
         int nummer = vraagOmStudentnummer(scanner);
-        studenten.removeIf(st -> st.getStudentennummer() == nummer);
+        getLijst().removeIf(st -> st.getStudentennummer() == nummer);
     }
 
     public void studentLijst() {
-        Util.printArrayList(studenten, "student", "studenten");
+        Util.printArrayList(getLijst(), "student", "studenten");
     }
 
     public Student studentMeesteExamensGehaald() {
         Student maxex = new Student();
-        for (Student st : studenten) {
+        for (Student st : getLijst()) {
             if (st.getGehaald().size() > maxex.getGehaald().size()) {
                 maxex = st;
             }

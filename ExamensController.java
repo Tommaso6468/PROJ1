@@ -4,16 +4,14 @@ import com.github.cliftonlabs.json_simple.JsonObject;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ExamensController {
-
-    private final ArrayList<Examen> examens;
+public class ExamensController extends Controller<Examen> {
 
     public ExamensController() {
-        examens = new ArrayList<>();
+        super();
     }
 
     private ExamensController(ArrayList<Examen> examens) {
-        this.examens = examens;
+        super(examens);
     }
 
     /**
@@ -34,47 +32,20 @@ public class ExamensController {
     }
 
     /**
-     * Krijgt de lijst met examens.
-     * @return De ArrayList die de examens bevat.
-     */
-    public ArrayList<Examen> getExamens() {
-        return examens;
-    }
-
-    /**
-     * Krijgt het aantal examens in de lijst.
-     * @return Het aantal examens in de lijst.
-     */
-    public int getAantalExamens() {
-        return examens.size();
-    }
-
-    /**
      * Voegt een nieuw examen toe aan de lijst.
      * @param naam De naam van het examen.
      * @param vragen De vragen in het examen.
      * @param minimum Het minimum aantal vragen goed.
      */
     public void voegExamenToe(String naam, Vraag[] vragen, int minimum) {
-        examens.add(new Examen(naam, vragen, minimum));
-    }
-
-    /**
-     * Voegt een examen toe aan de lijst.
-     * @param examen Het examen om toe te voegen.
-     */
-    public void voegExamenToe(Examen examen) {
-        if (examen == null) {
-            throw new IllegalArgumentException("Parameter examen moet niet null zijn.");
-        }
-        examens.add(examen);
+        voegToe(new Examen(naam, vragen, minimum));
     }
 
     /**
      * Drukt een lijst met alle examens af.
      */
     public void lijstExamens() {
-        Util.printArrayList(examens, "examen beschikbaar", "examens beschikbaar");
+        Util.printArrayList(getLijst(), "examen beschikbaar", "examens beschikbaar");
     }
 
     /**
@@ -84,10 +55,10 @@ public class ExamensController {
      */
     public Examen kiesExamen(Scanner scanner) {
         lijstExamens();
-        int aantal = this.getAantalExamens();
+        int aantal = this.getAantal();
         if (aantal == 0) return null;
 
         System.out.println("Geef het nummer van het examen.");
-        return examens.get(Util.leesInt(scanner, 1, aantal) - 1);
+        return getLijst().get(Util.leesInt(scanner, 1, aantal) - 1);
     }
 }
