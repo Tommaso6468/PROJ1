@@ -24,9 +24,6 @@ public class Vraag {
      * @throws InvalidJsonFormatException De vraag is niet goed geformatteerd.
      */
     public static Vraag leesVanJson(JsonObject object) throws InvalidJsonFormatException {
-        if (!object.containsKey("vraag") || !object.containsKey("antwoord")) {
-            return null;
-        }
         String vraag = Util.leesJsonString(object, "vraag");
         String antwoord = Util.leesJsonString(object, "antwoord");
 
@@ -53,31 +50,27 @@ public class Vraag {
     }
 
     public boolean stelVraag(Scanner scanner) {
-        System.out.println(vraag + "\n");
+        System.out.println(vraag);
+        System.out.println();
 
         if (opties != null) {
             //Meerdere opties
 
-            //Preparen voor printen opties
+            //Shuffle de opties
             List<String> optiesList = Arrays.asList(opties);
             Collections.shuffle(optiesList);
-            ArrayList<Character> letters = new ArrayList<>();
-            char a;
-            for (a = 'a'; a <= 'z'; ++a) {
-                letters.add(a);
-            }
 
             //Printen opties
-            for (int i = 0; i < opties.length; i++) {
-                System.out.println(letters.get(i) + ") " + opties[i]);
+            char letter = 'a';
+            for (String optie : opties) {
+                System.out.println(letter + ") " + optie);
+                letter++;
             }
-
-            System.out.println("\nTyp uw antwoord in en druk Enter");
 
             //Inlezen antwoord
             int indexAntwoord;
             while (true) {
-                String userInput = scanner.next();
+                String userInput = vraagOmAntwoord(scanner);
                 char userInputChar = userInput.charAt(0);
 
                 //Controle antwoord
@@ -85,21 +78,27 @@ public class Vraag {
                 if (indexAntwoord >= 0 && indexAntwoord < opties.length) {
                     break;
                 } else {
-                    System.out.println("Voer een geldige optie in.");
+                    System.out.printf("'%c' is geen geldige optie.%n", userInputChar);
                 }
             }
             eindUserAntwoord = opties[indexAntwoord];
-            goedOfFout = opties[indexAntwoord].equals(antwoord);
         } else {
 
             // Open vraag
-            System.out.println("\nTyp uw antwoord in en druk Enter");
-            String userInput = scanner.next();
-            eindUserAntwoord = userInput;
-            goedOfFout = userInput.equalsIgnoreCase(antwoord);
-
+            eindUserAntwoord = vraagOmAntwoord(scanner);
         }
+        goedOfFout = eindUserAntwoord.equalsIgnoreCase(antwoord);
         return goedOfFout;
+    }
+
+    private String vraagOmAntwoord(Scanner scanner) {
+        String invoer;
+        do {
+            System.out.println("Typ uw antwoord in en druk Enter.");
+            invoer = scanner.nextLine();
+        }
+        while (invoer.isBlank());
+        return invoer;
     }
 
     public void printVraagEnAntwoordEnGoedOfFout() {
