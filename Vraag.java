@@ -102,7 +102,11 @@ public class Vraag {
     }
 
     public void printVraagEnAntwoordEnGoedOfFout() {
-        System.out.println("\nVraag: " + vraag + "\nJuist antwoord: " + antwoord + "\nJouw antwoord: " + eindUserAntwoord + "\nResultaat: " + goedOfFout);
+        String goedOfFoutString;
+        if (goedOfFout) {
+            goedOfFoutString = "Goed";
+        } else goedOfFoutString = "Fout";
+        System.out.println("\nVraag: " + vraag + "\nJuist antwoord: " + antwoord + "\nJouw antwoord: " + eindUserAntwoord + "\nResultaat: " + goedOfFoutString);
     }
 
 }
