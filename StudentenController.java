@@ -11,6 +11,7 @@ public class StudentenController {
 
     /**
      * Haalt de student up met een bepaald nummer
+     *
      * @param nummer Het studentennummer
      * @return De student met dat nummer, of null als die er niet is.
      */
@@ -54,14 +55,21 @@ public class StudentenController {
         Util.printArrayList(studenten, "student", "studenten");
     }
 
-    public Student studentMeesteExamensGehaald() {
-        Student maxex = new Student();
+    public ArrayList<Student> studentMeesteExamensGehaald() {
+        ArrayList<Student> studentenMeesteExamens = new ArrayList<>();
+
         for (Student st : studenten) {
-            if (st.getGehaald().size() > maxex.getGehaald().size()) {
-                maxex = st;
+
+            if (studentenMeesteExamens.isEmpty()) {
+                studentenMeesteExamens.add(st);
+            } else if (st.getGehaald().size() > studentenMeesteExamens.get(0).getGehaald().size()) {
+                studentenMeesteExamens.clear();
+                studentenMeesteExamens.add(st);
+            } else if (st.getGehaald().size() == studentenMeesteExamens.get(0).getGehaald().size()) {
+                studentenMeesteExamens.add(st);
             }
         }
-        return maxex;
+        return studentenMeesteExamens;
     }
 
     public void studentWelkeExamensGehaald(Scanner scanner) {

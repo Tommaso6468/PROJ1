@@ -30,6 +30,7 @@ public class Menu {
 
     /**
      * Creëert de ExamensController door de info van de JSON te lezen.
+     *
      * @return Als er een fout is, de beschrijving van de fout; anders null.
      */
     private static String leesExamens() {
@@ -37,8 +38,7 @@ public class Menu {
         try {
             // TODO
             reader = new FileReader("./examens.json");
-        }
-        catch (FileNotFoundException exception) {
+        } catch (FileNotFoundException exception) {
             return "Het bestand \"examens.json\" mist.";
         }
 
@@ -49,12 +49,10 @@ public class Menu {
                 return "De JSON moet een array met examens bevatten.";
             }
             examensController = ExamensController.leesVanJson(array);
-        }
-        catch (JsonException exception) {
+        } catch (JsonException exception) {
             //exception.printStackTrace();
             return "Er zit een syntaxisfout in de JSON.";
-        }
-        catch (InvalidJsonFormatException exception) {
+        } catch (InvalidJsonFormatException exception) {
             return "De JSON is niet goed geformatteerd. " + exception.getMessage();
         }
         return null;
@@ -121,7 +119,16 @@ public class Menu {
                     break;
                 case 8:
                     System.out.println("Deze student heeft de meeste examens gehaald:");
-                    System.out.println(studentenController.studentMeesteExamensGehaald().toString());
+                    ArrayList<Student> studentMeesteExamens = studentenController.studentMeesteExamensGehaald();
+
+                    if (studentMeesteExamens.isEmpty()) {
+                        System.out.println("Niemand heeft een examen gemaakt.");
+                    } else {
+                        for (Student st : studentMeesteExamens) {
+                            System.out.println(st.getNaam());
+                        }
+                    }
+
                     break;
                 case 0:
                     return;
