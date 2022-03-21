@@ -24,9 +24,6 @@ public class Menu {
             return;
         }
 
-        // TODO
-        studentenController = new StudentenController();
-
         startMenu();
     }
 
