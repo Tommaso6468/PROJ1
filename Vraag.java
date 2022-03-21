@@ -67,12 +67,10 @@ public class Vraag {
                 letter++;
             }
 
-            System.out.println("Typ uw antwoord in en druk Enter");
-
             //Inlezen antwoord
             int indexAntwoord;
             while (true) {
-                String userInput = scanner.nextLine();
+                String userInput = vraagOmAntwoord(scanner);
                 char userInputChar = userInput.charAt(0);
 
                 //Controle antwoord
@@ -80,21 +78,27 @@ public class Vraag {
                 if (indexAntwoord >= 0 && indexAntwoord < opties.length) {
                     break;
                 } else {
-                    System.out.println("Voer een geldige optie in.");
+                    System.out.printf("'%c' is geen geldige optie.%n", userInputChar);
                 }
             }
             eindUserAntwoord = opties[indexAntwoord];
-            goedOfFout = opties[indexAntwoord].equals(antwoord);
         } else {
 
             // Open vraag
-            System.out.println("Typ uw antwoord in en druk Enter");
-            String userInput = scanner.nextLine();
-            eindUserAntwoord = userInput;
-            goedOfFout = userInput.equalsIgnoreCase(antwoord);
-
+            eindUserAntwoord = vraagOmAntwoord(scanner);
         }
+        goedOfFout = eindUserAntwoord.equalsIgnoreCase(antwoord);
         return goedOfFout;
+    }
+
+    private String vraagOmAntwoord(Scanner scanner) {
+        String invoer;
+        do {
+            System.out.println("Typ uw antwoord in en druk Enter.");
+            invoer = scanner.nextLine();
+        }
+        while (invoer.isBlank());
+        return invoer;
     }
 
     public void printVraagEnAntwoordEnGoedOfFout() {
