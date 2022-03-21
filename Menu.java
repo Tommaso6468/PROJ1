@@ -15,10 +15,12 @@ public class Menu {
     public static void main(String[] args) {
         System.out.println("Welkom bij (naam programma)!");
 
-        String error = leesExamens();
-        if (error != null) {
-            System.out.println("Het programma kan helaas niet worden opgestart, omdat de info over de examens niet kan worden ingelezen:");
-            System.out.println(error);
+        String errorExamens = leesExamens();
+        String errorStudenten = leesStudenten();
+        if (errorExamens != null || errorStudenten != null) {
+            System.out.println("Het programma kan helaas niet worden opgestart, omdat de info over de examens/studenten niet kan worden ingelezen:");
+            System.out.println(errorExamens);
+            System.out.println(errorStudenten);
             return;
         }
 
@@ -49,6 +51,32 @@ public class Menu {
                 return "De JSON moet een array met examens bevatten.";
             }
             examensController = ExamensController.leesVanJson(array);
+        }
+        catch (JsonException exception) {
+            //exception.printStackTrace();
+            return "Er zit een syntaxisfout in de JSON.";
+        }
+        catch (InvalidJsonFormatException exception) {
+            return "De JSON is niet goed geformatteerd. " + exception.getMessage();
+        }
+        return null;
+    }
+
+    private static String leesStudenten() {
+        FileReader reader;
+        try {
+            reader = new FileReader("./studenten.json");
+        } catch (FileNotFoundException exception) {
+            return "Het bestand \"studenten.json\" mist";
+        }
+
+        Object rootObj;
+        try {
+            rootObj = Jsoner.deserialize(reader);
+            if (!(rootObj instanceof JsonArray array)) {
+                return "De JSON moet een array met studenten bevatten.";
+            }
+            studentenController = StudentenController.leesVanJson(array);
         }
         catch (JsonException exception) {
             //exception.printStackTrace();

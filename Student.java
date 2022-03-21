@@ -1,3 +1,6 @@
+import com.github.cliftonlabs.json_simple.JsonArray;
+import com.github.cliftonlabs.json_simple.JsonObject;
+
 import java.util.ArrayList;
 
 public class Student {
@@ -5,6 +8,19 @@ public class Student {
     private ArrayList<Examen> gehaald = new ArrayList<>();
     private String naam;
     private int studentennummer;
+
+    public Student(){}
+
+    public Student(int studentennummer, String naam) {
+        this.naam = naam;
+        this.studentennummer = studentennummer;
+    }
+
+    public static Student leesVanJson(JsonObject object) {
+        int studentennummer = Util.leesJsonInt(object, "studentennummer", 0, Integer.MAX_VALUE);
+        String naam = Util.leesJsonString(object, "naam");
+        return new Student(studentennummer,naam);
+    }
 
     public ArrayList<Examen> getGehaald() {
         return gehaald;

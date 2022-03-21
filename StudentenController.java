@@ -1,12 +1,38 @@
+import com.github.cliftonlabs.json_simple.JsonArray;
+import com.github.cliftonlabs.json_simple.JsonObject;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StudentenController {
 
-    private final ArrayList<Student> studenten = new ArrayList<>();
+    private final ArrayList<Student> studenten;
 
     public ArrayList<Student> getStudentLijst() {
         return this.studenten;
+    }
+
+    public StudentenController() {studenten = new ArrayList<>();}
+
+    private StudentenController(ArrayList<Student> studenten) {
+        this.studenten = studenten;
+    }
+
+    /**
+     * Leest de info over alle examens uit een JSON-array.
+     * @param array De array met de info over alle examens.
+     * @return De ExamensController geconstrueerd met de info uit de array.
+     * @throws InvalidJsonFormatException De examens zijn niet goed geformatteerd.
+     */
+    public static StudentenController leesVanJson(JsonArray array) {
+        ArrayList<Student> studenten = new ArrayList<>(array.size());
+        for (Object examenInput : array) {
+            if (!(examenInput instanceof JsonObject examenObject)) {
+                return null;
+            }
+            studenten.add(Student.leesVanJson(examenObject));
+        }
+        return new StudentenController(studenten);
     }
 
     /**
