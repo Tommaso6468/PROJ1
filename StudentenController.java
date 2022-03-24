@@ -25,9 +25,9 @@ public class StudentenController {
     }
 
     /**
-     * Leest de info over alle examens uit een JSON-array.
+     * Leest de info over alle studenten uit een JSON-array.
      *
-     * @param array De array met de info over alle examens.
+     * @param array De array met de info over alle studenten.
      * @return De ExamensController geconstrueerd met de info uit de array.
      * @throws InvalidJsonFormatException De examens zijn niet goed geformatteerd.
      */
