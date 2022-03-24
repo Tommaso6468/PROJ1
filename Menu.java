@@ -114,10 +114,10 @@ public class Menu {
                     studentenController.studentLijst();
                     break;
                 case 3:
-                    studentenController.studentToevoegen(scanner, studentenArray);
+                    studentenController.studentToevoegen(scanner);
                     break;
                 case 4:
-                    studentenController.studentVerwijderen(scanner, studentenArray);
+                    studentenController.studentVerwijderen(scanner);
                     break;
                 case 5:
                     //check of student in lijst staat
@@ -125,7 +125,7 @@ public class Menu {
                     int studentenNummer = Util.leesInt(scanner, 0, Integer.MAX_VALUE);
                     Student student = studentenController.getStudentMetNummer(studentenNummer);
                     if (student == null) {
-                        student = studentenController.studentToevoegen(scanner, studentenNummer, studentenArray);
+                        student = studentenController.studentToevoegen(scanner, studentenNummer);
                     }
                     Examen examen = examensController.kiesExamen(scanner);
                     isGeslaagdExamen = examen.neemAf(scanner);

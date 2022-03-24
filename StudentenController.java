@@ -42,7 +42,9 @@ public class StudentenController {
         return new StudentenController(studenten);
     }
 
-    public JsonArray studentToevoegenAanJson(JsonArray array, int studentennummer, String naam) {
+    public void studentToevoegenAanJson(int studentennummer, String naam) {
+
+        JsonArray array = Menu.studentenArray;
 
         try {
 
@@ -61,7 +63,7 @@ public class StudentenController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return array;
+        Menu.studentenArray = array;
     }
 
     /**
@@ -79,7 +81,7 @@ public class StudentenController {
         return null;
     }
 
-    public void studentToevoegen(Scanner scanner, JsonArray array) {
+    public void studentToevoegen(Scanner scanner) {
         int studentnummer;
         while (true) {
             studentnummer = vraagOmStudentnummer(scanner);
@@ -88,21 +90,23 @@ public class StudentenController {
             }
             System.out.println("Er is al een student met dit nummer; probeer opnieuw.");
         }
-        studentToevoegen(scanner, studentnummer, array);
+        studentToevoegen(scanner, studentnummer);
     }
 
-    public Student studentToevoegen(Scanner scanner, int studentnummer, JsonArray array) {
+    public Student studentToevoegen(Scanner scanner, int studentnummer) {
         Student student = new Student();
         student.setStudentennummer(studentnummer);
         System.out.println("Voer de naam van de student in:");
         String naam = scanner.nextLine();
         student.setNaam(naam);
         studenten.add(student);
-        Menu.studentenArray = studentToevoegenAanJson(array, studentnummer, naam);
+        studentToevoegenAanJson(studentnummer, naam);
         return student;
     }
 
-    public void studentVerwijderen(Scanner scanner, JsonArray array) {
+    public void studentVerwijderen(Scanner scanner) {
+        JsonArray array = Menu.studentenArray;
+
         int nummer = vraagOmStudentnummer(scanner);
         studenten.removeIf(st -> st.getStudentennummer() == nummer);
         for (int i = 0; i < array.size(); i++) {
