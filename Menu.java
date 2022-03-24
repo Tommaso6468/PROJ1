@@ -117,7 +117,7 @@ public class Menu {
                     studentenController.studentToevoegen(scanner, studentenArray);
                     break;
                 case 4:
-                    studentenController.studentVerwijderen(scanner);
+                    studentenController.studentVerwijderen(scanner, studentenArray);
                     break;
                 case 5:
                     //check of student in lijst staat
