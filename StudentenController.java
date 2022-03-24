@@ -1,7 +1,9 @@
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class StudentenController {
@@ -12,7 +14,9 @@ public class StudentenController {
         return this.studenten;
     }
 
-    public StudentenController() {studenten = new ArrayList<>();}
+    public StudentenController() {
+        studenten = new ArrayList<>();
+    }
 
     private StudentenController(ArrayList<Student> studenten) {
         this.studenten = studenten;
@@ -20,6 +24,7 @@ public class StudentenController {
 
     /**
      * Leest de info over alle examens uit een JSON-array.
+     *
      * @param array De array met de info over alle examens.
      * @return De ExamensController geconstrueerd met de info uit de array.
      * @throws InvalidJsonFormatException De examens zijn niet goed geformatteerd.
@@ -35,8 +40,31 @@ public class StudentenController {
         return new StudentenController(studenten);
     }
 
+    public JsonArray studentToevoegenAanJson(JsonArray array, int studentennummer, String naam) {
+
+        try {
+
+            FileWriter fw = new FileWriter("./studenten.json");
+
+            JsonObject obj = new JsonObject();
+            obj.put("studentennummer", studentennummer);
+            obj.put("naam", naam);
+
+            array.add(obj);
+
+            fw.write(array.toJson());
+            fw.flush();
+            fw.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+
     /**
      * Haalt de student up met een bepaald nummer
+     *
      * @param nummer Het studentennummer
      * @return De student met dat nummer, of null als die er niet is.
      */
@@ -49,7 +77,7 @@ public class StudentenController {
         return null;
     }
 
-    public void studentToevoegen(Scanner scanner) {
+    public void studentToevoegen(Scanner scanner, JsonArray array) {
         int studentnummer;
         while (true) {
             studentnummer = vraagOmStudentnummer(scanner);
@@ -58,16 +86,17 @@ public class StudentenController {
             }
             System.out.println("Er is al een student met dit nummer; probeer opnieuw.");
         }
-        studentToevoegen(scanner, studentnummer);
+        studentToevoegen(scanner, studentnummer, array);
     }
 
-    public Student studentToevoegen(Scanner scanner, int studentnummer) {
+    public Student studentToevoegen(Scanner scanner, int studentnummer, JsonArray array) {
         Student student = new Student();
         student.setStudentennummer(studentnummer);
         System.out.println("Voer de naam van de student in:");
         String naam = scanner.nextLine();
         student.setNaam(naam);
         studenten.add(student);
+        Menu.studentenArray = studentToevoegenAanJson(array, studentnummer, naam);
         return student;
     }
 

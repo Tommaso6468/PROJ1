@@ -11,6 +11,7 @@ public class Menu {
 
     private static ExamensController examensController;
     private static StudentenController studentenController;
+    public static JsonArray studentenArray;
 
     public static void main(String[] args) {
         System.out.println("Welkom bij (naam programma)!");
@@ -29,6 +30,7 @@ public class Menu {
 
     /**
      * Creëert de ExamensController door de info van de JSON te lezen.
+     *
      * @return Als er een fout is, de beschrijving van de fout; anders null.
      */
     private static String leesExamens() {
@@ -36,8 +38,7 @@ public class Menu {
         try {
             // TODO
             reader = new FileReader("./examens.json");
-        }
-        catch (FileNotFoundException exception) {
+        } catch (FileNotFoundException exception) {
             return "Het bestand \"examens.json\" mist.";
         }
 
@@ -48,12 +49,10 @@ public class Menu {
                 return "De JSON moet een array met examens bevatten.";
             }
             examensController = ExamensController.leesVanJson(array);
-        }
-        catch (JsonException exception) {
+        } catch (JsonException exception) {
             //exception.printStackTrace();
             return "Er zit een syntaxisfout in de JSON.";
-        }
-        catch (InvalidJsonFormatException exception) {
+        } catch (InvalidJsonFormatException exception) {
             return "De JSON is niet goed geformatteerd. " + exception.getMessage();
         }
         return null;
@@ -74,14 +73,14 @@ public class Menu {
                 return "De JSON moet een array met studenten bevatten.";
             }
             studentenController = StudentenController.leesVanJson(array);
-        }
-        catch (JsonException exception) {
+            studentenArray = array;
+        } catch (JsonException exception) {
             //exception.printStackTrace();
             return "Er zit een syntaxisfout in de JSON.";
-        }
-        catch (InvalidJsonFormatException exception) {
+        } catch (InvalidJsonFormatException exception) {
             return "De JSON is niet goed geformatteerd. " + exception.getMessage();
         }
+
         return null;
     }
 
@@ -115,7 +114,7 @@ public class Menu {
                     studentenController.studentLijst();
                     break;
                 case 3:
-                    studentenController.studentToevoegen(scanner);
+                    studentenController.studentToevoegen(scanner, studentenArray);
                     break;
                 case 4:
                     studentenController.studentVerwijderen(scanner);
@@ -126,7 +125,7 @@ public class Menu {
                     int studentenNummer = Util.leesInt(scanner, 0, Integer.MAX_VALUE);
                     Student student = studentenController.getStudentMetNummer(studentenNummer);
                     if (student == null) {
-                        student = studentenController.studentToevoegen(scanner, studentenNummer);
+                        student = studentenController.studentToevoegen(scanner, studentenNummer, studentenArray);
                     }
                     Examen examen = examensController.kiesExamen(scanner);
                     isGeslaagdExamen = examen.neemAf(scanner);
