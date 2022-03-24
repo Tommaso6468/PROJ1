@@ -145,7 +145,16 @@ public class Menu {
                     break;
                 case 8:
                     System.out.println("Deze student heeft de meeste examens gehaald:");
-                    System.out.println(studentenController.studentMeesteExamensGehaald().toString());
+                    ArrayList<Student> studentMeesteExamens = studentenController.studentMeesteExamensGehaald();
+
+                    if (studentMeesteExamens.isEmpty()) {
+                        System.out.println("Niemand heeft een examen gehaald.");
+                    } else {
+                        for (Student st : studentMeesteExamens) {
+                            System.out.println(st.getNaam());
+                        }
+                    }
+
                     break;
                 case 0:
                     return;
