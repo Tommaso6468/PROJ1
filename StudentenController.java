@@ -61,7 +61,7 @@ public class StudentenController {
             fw.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("studenten.json niet gevonden");
         }
         Menu.studentenArray = array;
     }
@@ -124,7 +124,7 @@ public class StudentenController {
             fw.close();
             Menu.studentenArray = array;
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("studenten.json niet gevonden");
         }
 
 
