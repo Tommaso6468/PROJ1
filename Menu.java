@@ -122,7 +122,7 @@ public class Menu {
                     ArrayList<Student> studentMeesteExamens = studentenController.studentMeesteExamensGehaald();
 
                     if (studentMeesteExamens.isEmpty()) {
-                        System.out.println("Niemand heeft een examen gemaakt.");
+                        System.out.println("Niemand heeft een examen gehaald.");
                     } else {
                         for (Student st : studentMeesteExamens) {
                             System.out.println(st.getNaam());
