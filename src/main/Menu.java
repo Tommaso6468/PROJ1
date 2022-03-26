@@ -1,9 +1,9 @@
-import com.github.cliftonlabs.json_simple.JsonArray;
-import com.github.cliftonlabs.json_simple.JsonException;
-import com.github.cliftonlabs.json_simple.Jsoner;
+import com.github.cliftonlabs.json_simple.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +12,7 @@ public class Menu {
     private static ExamensController examensController;
     private static StudentenController studentenController;
     public static JsonArray studentenArray;
+    public static JsonArray examensArray;
 
     public static void main(String[] args) {
         System.out.println("Welkom bij (naam programma)!");
@@ -49,6 +50,7 @@ public class Menu {
                 return "De JSON moet een array met examens bevatten.";
             }
             examensController = ExamensController.leesVanJson(array);
+            examensArray = array;
         } catch (JsonException exception) {
             //exception.printStackTrace();
             return "Er zit een syntaxisfout in de JSON.";
@@ -131,6 +133,27 @@ public class Menu {
                     isGeslaagdExamen = examen.neemAf(scanner);
                     if (isGeslaagdExamen) {
                         student.setGehaald(examen);
+
+                        JsonObject gekozenExamenJsonObj = (JsonObject) examensArray.get(ExamensController.gekozenExamenIndex);
+
+                        JsonArray listGehaald = (JsonArray) gekozenExamenJsonObj.get("gehaald");
+                        listGehaald.add(studentenNummer);
+                        gekozenExamenJsonObj.putChain("gehaald",listGehaald);
+                        examensArray.remove(ExamensController.gekozenExamenIndex);
+                        examensArray.add(gekozenExamenJsonObj);
+
+                        try {
+
+                            FileWriter fw = new FileWriter("./examens.json");
+                            fw.write(examensArray.toJson());
+                            fw.flush();
+                            fw.close();
+
+                        } catch (IOException e) {
+                            System.out.println("Examens.json niet gevonden");
+                        }
+
+
                     }
                     break;
                 case 6:

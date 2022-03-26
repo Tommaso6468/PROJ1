@@ -16,6 +16,8 @@ public class ExamensController {
         this.examens = examens;
     }
 
+    public static int gekozenExamenIndex;
+
     /**
      * Leest de info over alle examens uit een JSON-array.
      * @param array De array met de info over alle examens.
@@ -88,6 +90,8 @@ public class ExamensController {
         if (aantal == 0) return null;
 
         System.out.println("Geef het nummer van het examen.");
-        return examens.get(Util.leesInt(scanner, 1, aantal) - 1);
+        int gekozenIndex = Util.leesInt(scanner, 1, aantal) - 1;
+        gekozenExamenIndex = gekozenIndex;
+        return examens.get(gekozenIndex);
     }
 }
