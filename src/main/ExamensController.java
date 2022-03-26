@@ -90,8 +90,7 @@ public class ExamensController {
         if (aantal == 0) return null;
 
         System.out.println("Geef het nummer van het examen.");
-        int gekozenIndex = Util.leesInt(scanner, 1, aantal) - 1;
-        gekozenExamenIndex = gekozenIndex;
-        return examens.get(gekozenIndex);
+        gekozenExamenIndex = Util.leesInt(scanner, 1, aantal) - 1;
+        return examens.get(gekozenExamenIndex);
     }
 }
