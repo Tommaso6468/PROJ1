@@ -31,6 +31,7 @@ public class ExamensController {
                 return null;
             }
             examens.add(Examen.leesVanJson(examenObject));
+            examens.get(examens.size() - 1).leesStudentenGehaald(examenObject);
         }
         return new ExamensController(examens);
     }
