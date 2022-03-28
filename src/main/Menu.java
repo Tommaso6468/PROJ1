@@ -10,15 +10,15 @@ import java.util.Scanner;
 public class Menu {
 
     private static ExamensController examensController;
-    private static StudentenController studentenController;
+    public static StudentenController studentenController;
     public static JsonArray studentenArray;
     public static JsonArray examensArray;
 
     public static void main(String[] args) {
-        System.out.println("Welkom bij (naam programma)!");
+        System.out.println("Welkom bij UwU Exams!");
 
-        String errorExamens = leesExamens();
         String errorStudenten = leesStudenten();
+        String errorExamens = leesExamens();
         if (errorExamens != null || errorStudenten != null) {
             System.out.println("Het programma kan helaas niet worden opgestart, omdat de info over de examens/studenten niet kan worden ingelezen:");
             System.out.println(errorExamens);
