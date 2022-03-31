@@ -157,11 +157,33 @@ public class Menu {
                     }
                     break;
                 case 6:
-                    if (isGeslaagdExamen) {
-                        System.out.println("Student is geslaagd voor het examen!");
-                    } else {
-                        System.out.println("Student is niet geslaagd voor het examen");
+                    //selecteren student
+                    System.out.println("Voer een leerlingnummer in:");
+                    int studentenNummer1 = Util.leesInt(scanner, 0, Integer.MAX_VALUE);
+                    Student student1 = studentenController.getStudentMetNummer(studentenNummer1);
+                    if (student1 == null) {
+                        System.out.println("Incorrect studentennummer");
+                        break;
                     }
+
+                    //selecteren examen
+                    examensController.lijstExamens();
+                    int examenKeuze = Util.leesInt(scanner, 0, Integer.MAX_VALUE);
+                    if (examensController.getAantalExamens() < examenKeuze) {
+                        System.out.println("Incorrect examen");
+                        break;
+                    }
+                    Examen gekozenExamen = examensController.getExamens().get(examenKeuze - 1);
+
+                    //checken of examen in arrayList gehaald staat
+                    boolean gehaald = student1.getGehaald().contains(gekozenExamen);
+                    System.out.println();
+                    if (gehaald) {
+                        System.out.println(student1.getNaam() + " heeft het examen \"" + gekozenExamen.getNaam() + "\" gehaald!");
+                    } else {
+                        System.out.println(student1.getNaam() + " heeft het examen \"" + gekozenExamen.getNaam() + "\" niet gehaald.");
+                    }
+                    System.out.println();
                     break;
                 case 7:
                     studentenController.studentWelkeExamensGehaald(scanner);
