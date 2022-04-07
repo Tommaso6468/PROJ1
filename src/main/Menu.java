@@ -15,7 +15,7 @@ public class Menu {
     public static JsonArray examensArray;
 
     public static void main(String[] args) {
-        System.out.println("Welkom bij UwU Exams!");
+        System.out.println("Welkom bij Wickey Ice Tea Green Examens! (Sponsored by Wickey Ice Tea Green™)");
 
         String errorStudenten = leesStudenten();
         String errorExamens = leesExamens();
