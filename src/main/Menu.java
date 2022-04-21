@@ -110,18 +110,23 @@ public class Menu {
 
             switch (keuze) {
                 case 1:
+                    System.out.println("\n");
                     examensController.lijstExamens();
                     break;
                 case 2:
+                    System.out.println("\n");
                     studentenController.studentLijst();
                     break;
                 case 3:
+                    System.out.println("\n");
                     studentenController.studentToevoegen(scanner);
                     break;
                 case 4:
+                    System.out.println("\n");
                     studentenController.studentVerwijderen(scanner);
                     break;
                 case 5:
+                    System.out.println("\n");
                     //check of student in lijst staat
                     System.out.println("Voer je leerlingennummer in:");
                     int studentenNummer = Util.leesInt(scanner, 0, Integer.MAX_VALUE);
@@ -157,6 +162,7 @@ public class Menu {
                     }
                     break;
                 case 6:
+                    System.out.println("\n");
                     //selecteren student
                     System.out.println("Voer een leerlingnummer in:");
                     int studentenNummer1 = Util.leesInt(scanner, 0, Integer.MAX_VALUE);
@@ -186,17 +192,32 @@ public class Menu {
                     System.out.println();
                     break;
                 case 7:
+                    System.out.println("\n");
                     studentenController.studentWelkeExamensGehaald(scanner);
                     break;
                 case 8:
-                    System.out.println("Deze student heeft de meeste examens gehaald:");
+
+
+                    System.out.println("\n");
                     ArrayList<Student> studentMeesteExamens = studentenController.studentMeesteExamensGehaald();
 
-                    if (studentMeesteExamens.isEmpty()) {
-                        System.out.println("Niemand heeft een examen gehaald.");
-                    } else {
+                    switch (studentMeesteExamens.size()) {
+                        case 1:
+                            System.out.println("Deze student heeft de meeste examens gehaald:");
+                            break;
+                        case 0:
+                            System.out.println("Niemand heeft een examen gehaald.");
+                            break;
+                        default:
+                            System.out.println("Deze studenten hebben de meeste examens gehaald:");
+                            break;
+                    }
+
+                    System.out.println("");
+
+                    if (!studentMeesteExamens.isEmpty()) {
                         for (Student st : studentMeesteExamens) {
-                            System.out.println(st.getNaam());
+                            System.out.println(st.getNaam() + " (" + st.getGehaald().size() + ")");
                         }
                     }
 
@@ -205,6 +226,7 @@ public class Menu {
                     return;
             }
 
+            System.out.println("");
             System.out.println("Druk op enter om terug te gaan naar het menu.");
             scanner.nextLine();
         }

@@ -1,1 +1,94 @@
-[{"gehaald":[1,2,3],"vragen":[{"antwoord":"2","opties":["1","2","3","42"],"vraag":"Wat is 1+1"},{"antwoord":"goed","opties":null,"vraag":"Hoe gaat het"}],"naam":"toetsje","minimum":2}]
+[
+  {
+    "gehaald": [
+
+    ],
+    "vragen": [
+      {
+        "antwoord": "2",
+        "opties": [
+          "1",
+          "2",
+          "3",
+          "42"
+        ],
+        "vraag": "Wat is 1+1"
+      },
+      {
+        "antwoord": "2018",
+        "opties": null,
+        "vraag": "In welk jaar is Hawking overleden?"
+      },
+      {
+        "antwoord": "2",
+        "opties": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "heel veel"
+        ],
+        "vraag": "Hoeveel vrienden heeft een software engineer?"
+      },
+      {
+        "antwoord": "Ja",
+        "opties": [
+          "Ja",
+          "Nee"
+        ],
+        "vraag": "Is java een programmeertaal?"
+      }
+    ],
+    "naam": "SimpelExamenpje",
+    "minimum": 2
+  },
+  {
+    "gehaald": [
+
+    ],
+    "vragen": [
+      {
+        "antwoord": "10",
+        "opties": [
+          "147",
+          "10",
+          "3",
+          "42",
+          "12",
+          "45",
+          "9"
+        ],
+        "vraag": "Hoeveel vingers heeft een mens?"
+      },
+      {
+        "antwoord": "Willem",
+        "opties": null,
+        "vraag": "Wat is de voornaam van de nederlandse koning?"
+      },
+      {
+        "antwoord": "2",
+        "opties": [
+          "1",
+          "2",
+          "3",
+          "raampje",
+          "11"
+        ],
+        "vraag": "Wat is 1+1"
+      },
+      {
+        "antwoord": "Niet",
+        "opties": [
+          "Niet",
+          "Niet",
+          "Niet",
+          "Niet",
+          "Niet"
+        ],
+        "vraag": "Hoe vaak douched een reddit gebruiker?"
+      }
+    ],
+    "naam": "ExamenPlop",
+    "minimum": 2
+  }
+]

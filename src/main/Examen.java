@@ -101,9 +101,9 @@ public class Examen {
         }
 
         System.out.println();
-        System.out.println("U heeft " + aantalGoed + " vragen goed en " + (minimum - aantalGoed) + " vragen fout.");
+        System.out.println("U heeft " + aantalGoed + " vragen goed en " + (vragen.length - aantalGoed) + " vragen fout.");
 
-        if (minimum >= aantalGoed) {
+        if (aantalGoed >= minimum) {
             System.out.println("U bent geslaagd!");
         } else System.out.println("U bent gezakt.");
 
