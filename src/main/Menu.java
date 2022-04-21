@@ -10,15 +10,15 @@ import java.util.Scanner;
 public class Menu {
 
     private static ExamensController examensController;
-    private static StudentenController studentenController;
+    public static StudentenController studentenController;
     public static JsonArray studentenArray;
     public static JsonArray examensArray;
 
     public static void main(String[] args) {
-        System.out.println("Welkom bij (naam programma)!");
+        System.out.println("Welkom bij Wickey Ice Tea Green Examens! (Sponsored by Wickey Ice Tea Green™)");
 
-        String errorExamens = leesExamens();
         String errorStudenten = leesStudenten();
+        String errorExamens = leesExamens();
         if (errorExamens != null || errorStudenten != null) {
             System.out.println("Het programma kan helaas niet worden opgestart, omdat de info over de examens/studenten niet kan worden ingelezen:");
             System.out.println(errorExamens);
@@ -110,18 +110,23 @@ public class Menu {
 
             switch (keuze) {
                 case 1:
+                    System.out.println("\n");
                     examensController.lijstExamens();
                     break;
                 case 2:
+                    System.out.println("\n");
                     studentenController.studentLijst();
                     break;
                 case 3:
+                    System.out.println("\n");
                     studentenController.studentToevoegen(scanner);
                     break;
                 case 4:
+                    System.out.println("\n");
                     studentenController.studentVerwijderen(scanner);
                     break;
                 case 5:
+                    System.out.println("\n");
                     //check of student in lijst staat
                     System.out.println("Voer je leerlingennummer in:");
                     int studentenNummer = Util.leesInt(scanner, 0, Integer.MAX_VALUE);
@@ -157,24 +162,62 @@ public class Menu {
                     }
                     break;
                 case 6:
-                    if (isGeslaagdExamen) {
-                        System.out.println("Student is geslaagd voor het examen!");
-                    } else {
-                        System.out.println("Student is niet geslaagd voor het examen");
+                    System.out.println("\n");
+                    //selecteren student
+                    System.out.println("Voer een leerlingnummer in:");
+                    int studentenNummer1 = Util.leesInt(scanner, 0, Integer.MAX_VALUE);
+                    Student student1 = studentenController.getStudentMetNummer(studentenNummer1);
+                    if (student1 == null) {
+                        System.out.println("Incorrect studentennummer");
+                        break;
                     }
+
+                    //selecteren examen
+                    examensController.lijstExamens();
+                    int examenKeuze = Util.leesInt(scanner, 0, Integer.MAX_VALUE);
+                    if (examensController.getAantalExamens() < examenKeuze) {
+                        System.out.println("Incorrect examen");
+                        break;
+                    }
+                    Examen gekozenExamen = examensController.getExamens().get(examenKeuze - 1);
+
+                    //checken of examen in arrayList gehaald staat
+                    boolean gehaald = student1.getGehaald().contains(gekozenExamen);
+                    System.out.println();
+                    if (gehaald) {
+                        System.out.println(student1.getNaam() + " heeft het examen \"" + gekozenExamen.getNaam() + "\" gehaald!");
+                    } else {
+                        System.out.println(student1.getNaam() + " heeft het examen \"" + gekozenExamen.getNaam() + "\" niet gehaald.");
+                    }
+                    System.out.println();
                     break;
                 case 7:
+                    System.out.println("\n");
                     studentenController.studentWelkeExamensGehaald(scanner);
                     break;
                 case 8:
-                    System.out.println("Deze student heeft de meeste examens gehaald:");
+
+
+                    System.out.println("\n");
                     ArrayList<Student> studentMeesteExamens = studentenController.studentMeesteExamensGehaald();
 
-                    if (studentMeesteExamens.isEmpty()) {
-                        System.out.println("Niemand heeft een examen gehaald.");
-                    } else {
+                    switch (studentMeesteExamens.size()) {
+                        case 1:
+                            System.out.println("Deze student heeft de meeste examens gehaald:");
+                            break;
+                        case 0:
+                            System.out.println("Niemand heeft een examen gehaald.");
+                            break;
+                        default:
+                            System.out.println("Deze studenten hebben de meeste examens gehaald:");
+                            break;
+                    }
+
+                    System.out.println("");
+
+                    if (!studentMeesteExamens.isEmpty()) {
                         for (Student st : studentMeesteExamens) {
-                            System.out.println(st.getNaam());
+                            System.out.println(st.getNaam() + " (" + st.getGehaald().size() + ")");
                         }
                     }
 
@@ -182,6 +225,10 @@ public class Menu {
                 case 0:
                     return;
             }
+
+            System.out.println("");
+            System.out.println("Druk op enter om terug te gaan naar het menu.");
+            scanner.nextLine();
         }
     }
 }

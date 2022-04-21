@@ -1,7 +1,8 @@
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Examen {
@@ -12,8 +13,9 @@ public class Examen {
 
     /**
      * Construeert een Examen.
-     * @param naam De naam van het examen.
-     * @param vragen De lijst met vragen in dit examen.
+     *
+     * @param naam    De naam van het examen.
+     * @param vragen  De lijst met vragen in dit examen.
      * @param minimum Het minimum aantal vragen dat goed moeten zijn om dit examen te halen.
      */
     public Examen(String naam, Vraag[] vragen, int minimum) {
@@ -25,6 +27,7 @@ public class Examen {
 
     /**
      * Leest de info over een examen uit een JSON-object.
+     *
      * @param object Het object met de info over dit examen.
      * @return Het Examen geconstrueerd met de info uit het object, of null als de JSON niet goed was geformatteerd.
      * @throws InvalidJsonFormatException De vraag is niet goed geformatteerd.
@@ -46,8 +49,18 @@ public class Examen {
         return new Examen(naam, vragen, minimum);
     }
 
+    public void leesStudentenGehaald(JsonObject object) {
+        JsonArray array = (JsonArray) object.get("gehaald");
+        if (array != null) {
+            for (int i = 0; i < array.size(); i++) {
+                Menu.studentenController.getStudentMetNummer(array.getInteger(i)).setGehaald(this);
+            }
+        }
+    }
+
     /**
      * Controleert of een aantal vragen goed voldoende is om dit examen te slagen.
+     *
      * @param aantalGoed Het aantal vragen dat goed is.
      * @return True als het voldoende is, anders false.
      */
@@ -57,6 +70,7 @@ public class Examen {
 
     /**
      * Krijgt de naam van dit examen.
+     *
      * @return De naam van dit examen.
      */
     public String getNaam() {
@@ -65,6 +79,7 @@ public class Examen {
 
     /**
      * Neemt het examen af; stelt alle vragen in het examen en checkt of het minimum aantal goed is gehaald.
+     *
      * @param scanner De scanner om de gebruikersinvoer uit te lezen.
      * @return True als het minimum aantal goed is gehaald; anders false.
      */
@@ -72,7 +87,7 @@ public class Examen {
         int aantalGoed = 0;
         for (int i = 0; i < vragen.length; i++) {
             System.out.println();
-            System.out.printf("Vraag %d:%n", i+1);
+            System.out.printf("Vraag %d:%n", i + 1);
             boolean isGoed = vragen[i].stelVraag(scanner);
             if (isGoed) {
                 aantalGoed++;
@@ -86,9 +101,9 @@ public class Examen {
         }
 
         System.out.println();
-        System.out.println("U heeft " + aantalGoed + " vragen goed en " + (minimum - aantalGoed) + " vragen fout.");
+        System.out.println("U heeft " + aantalGoed + " vragen goed en " + (vragen.length - aantalGoed) + " vragen fout.");
 
-        if (minimum >= aantalGoed) {
+        if (aantalGoed >= minimum) {
             System.out.println("U bent geslaagd!");
         } else System.out.println("U bent gezakt.");
 

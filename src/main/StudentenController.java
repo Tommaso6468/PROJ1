@@ -138,7 +138,7 @@ public class StudentenController {
         ArrayList<Student> studentenMeesteExamens = new ArrayList<>();
 
         for (Student st : studenten) {
-
+            if (st.getGehaald().isEmpty()) continue;
             if (studentenMeesteExamens.isEmpty()) {
                 studentenMeesteExamens.add(st);
             } else if (st.getGehaald().size() > studentenMeesteExamens.get(0).getGehaald().size()) {
@@ -148,6 +148,7 @@ public class StudentenController {
                 studentenMeesteExamens.add(st);
             }
         }
+
         return studentenMeesteExamens;
     }
 
